@@ -23,7 +23,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI", "src\kodlama.io.De
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kodlama.io.Core.Application", "src\corePackeges\Kodlama.io.Core.Application\Kodlama.io.Core.Application.csproj", "{B2EBD96B-CAF8-4EBF-880A-79EE6308A99C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kodlama.io.Core.CrossCuttingConcers", "src\corePackeges\Kodlama.io.Core.CrossCuttingConcers\Kodlama.io.Core.CrossCuttingConcers.csproj", "{D52CF04D-2E0C-446C-BE96-90B1CE8E1B40}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kodlama.io.Core.CrossCuttingConcers", "src\corePackeges\Kodlama.io.Core.CrossCuttingConcers\Kodlama.io.Core.CrossCuttingConcers.csproj", "{D52CF04D-2E0C-446C-BE96-90B1CE8E1B40}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kodlama.io.Core.Security", "src\corePackeges\Kodlama.io.Core.Security\Kodlama.io.Core.Security.csproj", "{E2CE3314-2006-476C-B6DB-B30766EB5816}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{D52CF04D-2E0C-446C-BE96-90B1CE8E1B40}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D52CF04D-2E0C-446C-BE96-90B1CE8E1B40}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D52CF04D-2E0C-446C-BE96-90B1CE8E1B40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2CE3314-2006-476C-B6DB-B30766EB5816}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2CE3314-2006-476C-B6DB-B30766EB5816}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2CE3314-2006-476C-B6DB-B30766EB5816}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2CE3314-2006-476C-B6DB-B30766EB5816}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -78,6 +84,7 @@ Global
 		{6F5A2010-3AD7-4B12-97C1-E3557B0D9735} = {E5E72881-C6CA-49B2-9C6A-7CAF9F9EE41E}
 		{B2EBD96B-CAF8-4EBF-880A-79EE6308A99C} = {4042FA0B-C55C-4198-92E0-B2490A9C0C19}
 		{D52CF04D-2E0C-446C-BE96-90B1CE8E1B40} = {4042FA0B-C55C-4198-92E0-B2490A9C0C19}
+		{E2CE3314-2006-476C-B6DB-B30766EB5816} = {4042FA0B-C55C-4198-92E0-B2490A9C0C19}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {04241B71-97A8-4E29-8AC8-3149C863EA38}

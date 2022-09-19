@@ -39,7 +39,7 @@ namespace WebAPI.Controllers
             return Ok(deletedProgrammingLanguageDto);
         }
         [HttpPut("{Id}")]
-        public async Task<IActionResult> Update([FromRoute] UpdateProgrammingLanguageCommand updateProgrammingLanguagesCommand)
+        public async Task<IActionResult> Update([FromBody] UpdateProgrammingLanguageCommand updateProgrammingLanguagesCommand)
         {
             UpdatedProgrammingLanguageDto updatedProgrammingLanguageDto = await Mediator.Send(updateProgrammingLanguagesCommand);
             return Ok(updatedProgrammingLanguageDto);

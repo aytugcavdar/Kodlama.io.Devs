@@ -11,6 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    
+    <ProjectReference Include="..\..\corePackeges\Kodlama.io.Core.Security\Kodlama.io.Core.Security.csproj" />
+    
     <ProjectReference Include="..\..\corePackeges\Kodlama.io.Persistence\Kodlama.io.Core.Persistence.csproj" />
   </ItemGroup>
 
