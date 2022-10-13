@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Kodlama.io.Core.Application.Pipelines.Authorization;
 
-namespace Kodlama.io.Application.Pipelines.Authorization
+public interface ISecuredRequest
 {
-    public interface ISecuredRequest
-    {
-        public string[] Roles { get; }
-    }
+    public string[] Roles { get; }
 }

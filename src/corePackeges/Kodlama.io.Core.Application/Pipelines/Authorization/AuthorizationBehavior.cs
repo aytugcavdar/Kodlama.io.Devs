@@ -1,13 +1,11 @@
 ﻿
-
 using Kodlama.io.Core.CrossCuttingConcers.Exceptions;
+using Kodlama.io.Core.Security.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
-using Kodlama.io.Core.Security.Extensions;
-using Kodlama.io.Application.Pipelines.Authorization;
 
-namespace Core.Application.Pipelines.Authorization;
+namespace Kodlama.io.Core.Application.Pipelines.Authorization;
 
 public class AuthorizationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : IRequest<TResponse>, ISecuredRequest

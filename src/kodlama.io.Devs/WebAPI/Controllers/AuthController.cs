@@ -1,5 +1,9 @@
-﻿using Application.Features.Users.Commands.Login;
-using Application.Features.Users.Commands.Register;
+﻿
+using Application.Features.Auths.Commands.Login;
+using Application.Features.Auths.Commands.Register;
+using Application.Features.Auths.Dtos;
+using Kodlama.io.Core.Security.Dtos;
+using Kodlama.io.Core.Security.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,19 +13,36 @@ namespace WebAPI.Controllers
     [ApiController]
     public class AuthController : BaseController
     {
-        [HttpPost("register")]
-        public async Task<ActionResult> Register([FromBody] RegisterCommand registerUserAppCommand)
+        [HttpPost("Register")]
+        public async Task<IActionResult> Register([FromBody] UserForRegisterDto userForRegisterDto)
         {
-            var result = await Mediator!.Send(registerUserAppCommand);
-            return Created("", result);
+            RegisterCommand registerCommand = new()
+            {
+                UserForRegisterDto = userForRegisterDto,
+                IpAddress = GetIpAddress()
+            };
+            RegisteredDto result = await Mediator.Send(registerCommand);
+            SetRefreshTokenToCookie(result.RefreshToken);
+            return Created("", result.AccessToken);
+        }
+        [HttpPost("Login")]
+        public async Task<IActionResult> Login([FromBody] UserForLoginDto userForLoginDto)
+        {
+            LoginCommand loginCommand = new() { UserForLoginDto = userForLoginDto, IPAddress = GetIpAddress() };
+            LoggedDto result = await Mediator.Send(loginCommand);
+
+            SetRefreshTokenToCookie(result.RefreshToken);
+            return Ok(result.AccessToken);
         }
 
-        [HttpPost("login")]
-        public async Task<ActionResult> Login([FromBody] LoginCommand loginUserAppCommand)
+        private void SetRefreshTokenToCookie(RefreshToken refreshToken)
         {
-            var result = await Mediator!.Send(loginUserAppCommand);
-
-            return Ok(result);
+            CookieOptions cookieOptions = new() { HttpOnly = true, Expires = DateTime.Now.AddDays(7) };
+            Response.Cookies.Append("refreshToken", refreshToken.Token, cookieOptions);
+        }
+        private string? getRefreshTokenFromCookies()
+        {
+            return Request.Cookies["refreshToken"];
         }
     }
 }

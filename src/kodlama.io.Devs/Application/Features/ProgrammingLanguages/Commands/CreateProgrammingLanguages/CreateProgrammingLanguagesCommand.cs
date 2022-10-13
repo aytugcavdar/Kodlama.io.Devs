@@ -2,7 +2,9 @@
 using Application.Features.ProgrammingLanguages.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
+
 using Domain.Entities;
+using Kodlama.io.Core.Application.Pipelines.Authorization;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -12,10 +14,11 @@ using System.Threading.Tasks;
 
 namespace Application.Features.ProgrammingLanguages.Commands.CreateProgrammingLanguages
 {
-    public  class CreateProgrammingLanguageCommand:IRequest<CreatedProgrammingLanguageDto>
+    public  class CreateProgrammingLanguageCommand:IRequest<CreatedProgrammingLanguageDto>, ISecuredRequest
     {
         public string Name { get; set; }
 
+        public string[] Roles => new string[] { "Admin" };
         public class CreateProgrammingLanguagesCommandHandler:IRequestHandler<CreateProgrammingLanguageCommand, CreatedProgrammingLanguageDto>
         {
             private readonly IProgrammingLanguageRepository _programmingLanguageRepository;

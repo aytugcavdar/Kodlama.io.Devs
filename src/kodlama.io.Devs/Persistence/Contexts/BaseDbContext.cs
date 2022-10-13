@@ -15,11 +15,11 @@ namespace Persistence.Contexts
         protected IConfiguration Configuration { get; set; }
         public DbSet<ProgrammingLanguage> ProgammingLanguages { get; set; }
         public DbSet<ProgrammingTechnology> ProgrammingTechnologies { get; set; }
-
         public DbSet<User> Users { get; set; }
         public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
         public DbSet<OperationClaim> OperationClaims { get; set; }
 
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
 
         public DbSet<GitHub> GitHubs { get; set; }
 
@@ -70,21 +70,37 @@ namespace Persistence.Contexts
                 u.HasMany(p => p.RefreshTokens);
             });
 
-            modelBuilder.Entity<UserOperationClaim>(u =>
+            modelBuilder.Entity<OperationClaim>(p =>
             {
-                u.ToTable("UserOperationClaims").HasKey(k => k.Id);
-                u.Property(p => p.Id).HasColumnName("Id");
-                u.Property(p => p.UserId).HasColumnName("UserId");
-                u.Property(p => p.OperationClaimId).HasColumnName("OperationClaimId");
-                u.HasOne(p => p.OperationClaim);
-                u.HasOne(p => p.User);
+                p.ToTable("OperationClaims").HasKey(o => o.Id);
+                p.Property(o => o.Id).HasColumnName("Id");
+                p.Property(o => o.Name).HasColumnName("Name");
             });
 
-            modelBuilder.Entity<OperationClaim>(o =>
+            modelBuilder.Entity<UserOperationClaim>(p =>
             {
-                o.ToTable("OperationClaims").HasKey(k => k.Id);
-                o.Property(p => p.Id).HasColumnName("Id");
-                o.Property(p => p.Name).HasColumnName("Name");
+                p.ToTable("UserOperationClaims").HasKey(u => u.Id);
+                p.Property(u => u.Id).HasColumnName("Id");
+                p.Property(u => u.UserId).HasColumnName("UserId");
+                p.Property(u => u.OperationClaimId).HasColumnName("OperationClaimId");
+                p.HasOne(u => u.User);
+                p.HasOne(u => u.OperationClaim);
+            });
+
+            modelBuilder.Entity<RefreshToken>(a =>
+            {
+                a.ToTable("RefreshTokens").HasKey(k => k.Id);
+                a.Property(p => p.Id).HasColumnName("Id");
+                a.Property(p => p.UserId).HasColumnName("UserId");
+                a.Property(p => p.Token).HasColumnName("Token");
+                a.Property(p => p.Expires).HasColumnName("Expires");
+                a.Property(p => p.Created).HasColumnName("Created");
+                a.Property(p => p.CreatedByIp).HasColumnName("CreatedByIp");
+                a.Property(p => p.Revoked).HasColumnName("Revoked");
+                a.Property(p => p.RevokedByIp).HasColumnName("RevokedByIp");
+                a.Property(p => p.ReplacedByToken).HasColumnName("ReplacedByToken");
+                a.Property(p => p.ReasonRevoked).HasColumnName("ReasonRevoked");
+                a.HasOne(p => p.User);
             });
 
             modelBuilder.Entity<GitHub>(g =>
@@ -95,6 +111,7 @@ namespace Persistence.Contexts
                 g.Property(p => p.GitHubProfileLink).HasColumnName("GitHubProfileLink");
                 g.HasOne(p => p.User);
             });
+            
 
             OperationClaim[] operationClaimsEntitySeeds = {
                 new(1, "Admin"),
@@ -111,7 +128,9 @@ namespace Persistence.Contexts
 
 
 
-            ProgrammingLanguage[] progammingLanguageEntitySeeds = { new(1, "C#") };
+            ProgrammingLanguage[] progammingLanguageEntitySeeds = { new(1, "C#"),
+            new(2, "Java"),
+            new(3, "Javascript"), };
             modelBuilder.Entity<ProgrammingLanguage>().HasData(progammingLanguageEntitySeeds);
 
 

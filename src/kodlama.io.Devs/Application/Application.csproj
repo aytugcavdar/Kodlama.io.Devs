@@ -16,9 +16,10 @@
 
 
 	<ItemGroup>
+	  <Folder Include="Features\OperationClaims\Models\" />
+	  <Folder Include="Features\OperationClaims\Queries\" />
 	  <Folder Include="Features\ProgrammingLanguages\Constants\" />
 	  <Folder Include="Features\ProgrammingTechnologies\Constants\" />
-	  <Folder Include="Features\Users\Dto\" />
 	</ItemGroup>
 
 
