@@ -36,8 +36,11 @@ namespace Application.Features.OperationClaims.Commands.DeleteOperationClaim
             public async Task<DeletedOperationClaimDto> Handle(DeleteOperationClaimCommand request, CancellationToken cancellationToken)
             {
                 await _operationClaimBusinessRules.OperationClaimIdShouldExistWhenSelected(request.Id);
-                OperationClaim mappedOperationClaim = _mapper.Map<OperationClaim>(request);
-                OperationClaim deletedOperationClaim = await _operationClaimRepository.DeleteAsync(mappedOperationClaim);
+
+
+
+                OperationClaim selected = await _operationClaimRepository.GetAsync(o=>o.Id == request.Id);
+                OperationClaim deletedOperationClaim = await _operationClaimRepository.DeleteAsync(selected);
                 DeletedOperationClaimDto deletedOperationClaimDto = _mapper.Map<DeletedOperationClaimDto>(deletedOperationClaim);
                 return deletedOperationClaimDto;
 

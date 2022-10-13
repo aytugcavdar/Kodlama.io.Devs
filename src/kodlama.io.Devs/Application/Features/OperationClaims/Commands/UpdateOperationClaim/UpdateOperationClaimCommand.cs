@@ -41,10 +41,10 @@ namespace Application.Features.OperationClaims.Commands.UpdateOperationClaim
                 await _operationClaimBusinessRules.OperationClaimIdShouldExistWhenSelected(request.Id);
                 await _operationClaimBusinessRules.OperationClaimNameCanNotBeDublicatedWhenInserted(request.Name);
 
-                OperationClaim mappedOperationClaim = _mapper.Map<OperationClaim>(request);
+                OperationClaim selected = await _operationClaimRepository.GetAsync(o => o.Id == request.Id);
+                OperationClaim mappedOperationClaim = _mapper.Map(request, selected);
                 OperationClaim updatedOperationClaim = await _operationClaimRepository.UpdateAsync(mappedOperationClaim);
-                UpdatedOperationClaimDto updatedOperationClaimDto =
-                    _mapper.Map<UpdatedOperationClaimDto>(updatedOperationClaim);
+                UpdatedOperationClaimDto updatedOperationClaimDto = _mapper.Map<UpdatedOperationClaimDto>(updatedOperationClaim);
                 return updatedOperationClaimDto;
             }
         }

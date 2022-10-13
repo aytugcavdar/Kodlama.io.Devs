@@ -2,7 +2,10 @@
 using Application.Features.OperationClaims.Commands.DeleteOperationClaim;
 using Application.Features.OperationClaims.Commands.UpdateOperationClaim;
 using Application.Features.OperationClaims.Dtos;
-
+using Application.Features.OperationClaims.Models;
+using Application.Features.OperationClaims.Queries.GetByIdOperationClaim;
+using Application.Features.OperationClaims.Queries.GetListOperationClaim;
+using Kodlama.io.Application.Requests;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
@@ -11,6 +14,21 @@ namespace WebAPI.Controllers
     [ApiController]
     public class OperationClaimsController : BaseController
     {
+        [HttpGet("{Id}")]
+        public async Task<IActionResult> GetById([FromRoute] GetByIdOperationClaimQuery getByIdOperationClaimQuery)
+        {
+            OperationClaimDto result = await Mediator.Send(getByIdOperationClaimQuery);
+            return Ok(result);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetList([FromQuery] PageRequest pageRequest)
+        {
+            GetListOperationClaimQuery getListOperationClaimQuery = new() { PageRequest = pageRequest };
+            OperationClaimListModel result = await Mediator.Send(getListOperationClaimQuery);
+            return Ok(result);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] CreateOperationClaimCommand createOperationClaimCommand)
         {

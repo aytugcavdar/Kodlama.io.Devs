@@ -40,6 +40,7 @@ namespace Application.Features.OperationClaims.Commands.CreateOperationClaim
             {
 
                 await _operationClaimBusinessRules.OperationClaimNameCanNotBeDublicatedWhenInserted(request.Name);
+
                 OperationClaim mappedClaim = _mapper.Map<OperationClaim>(request);
                 OperationClaim createdClaim = await _operationClaimRepository.AddAsync(mappedClaim);
                 CreatedOperationClaimDto claimDto = _mapper.Map<CreatedOperationClaimDto>(createdClaim); ;
